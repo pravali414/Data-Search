@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Employee {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column(name = "name")
@@ -29,7 +29,7 @@ public class Employee {
 	}
 
 	public void setName(String name) {
-		name = name;
+		this.name = name;
 	}
 
 	public int getSalary() {
@@ -37,13 +37,13 @@ public class Employee {
 	}
 
 	public void setSalary(int salary) {
-		salary = salary;
+		this.salary = salary;
 	}
 
 	public Employee(long id, String name, int salary) {
 		this.id = id;
-		name = name;
-		salary = salary;
+		this.name = name;
+		this.salary = salary;
 	}
 	public Employee() {};
 	@Override

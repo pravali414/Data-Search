@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.bezkoder.spring.datajpa.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -62,6 +63,7 @@ public class EmployeeController {
 
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+		System.out.println("Employee : "+employee );
 		try {
 			Employee _employee = employeeRepository
 					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary()));
@@ -69,6 +71,7 @@ public class EmployeeController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
 	}
 
 	@PutMapping("/employees/{id}")
