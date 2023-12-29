@@ -36,6 +36,7 @@ public class EmployeeController {
 	public ResponseEntity<List<Employee>>getAllEmployee(@RequestParam(required = false) String name) {
 		logger.info("given input value as name is = "+name );
 
+
 		try {
 			List<Employee> employees = new ArrayList<Employee>();
 
@@ -54,9 +55,10 @@ public class EmployeeController {
 		}
 	}
 
-	@GetMapping("/employees/{id}")
+	@GetMapping("/employee/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id) {
 		Optional<Employee> employeeData = employeeRepository.findById(id);
+		logger.info("Employee : "+id );
 
 		if (employeeData.isPresent()) {
 			return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
