@@ -33,8 +33,8 @@ public class EmployeeController {
 	EmployeeRepository employeeRepository;
 
 	@GetMapping("/Employees")
-	public ResponseEntity<List<Employee>>getAllEmployee(@RequestParam(required = false) String name) {
-		logger.info("given input value as name is = "+name );
+	public ResponseEntity<List<Employee>> getAllEmployee(@RequestParam(required = false) String name) {
+		logger.info("given input value as name is = " + name);
 
 
 		try {
@@ -43,7 +43,7 @@ public class EmployeeController {
 			if (name == null)
 				employeeRepository.findAll().forEach(employees::add);
 			else
-				employeeRepository.findByNameContaining(name).forEach(employees::add);
+				employeeRepository.findByNameIsLike(name).forEach(employees::add);
 
 			if (employees.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -58,7 +58,7 @@ public class EmployeeController {
 	@GetMapping("/employee/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id) {
 		Optional<Employee> employeeData = employeeRepository.findById(id);
-		logger.info("Employee : "+id );
+		logger.info("Employee : " + id);
 
 		if (employeeData.isPresent()) {
 			return new ResponseEntity<>(employeeData.get(), HttpStatus.OK);
@@ -69,10 +69,10 @@ public class EmployeeController {
 
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-		logger.info("Employee : "+employee );
+		logger.info("Employee : " + employee);
 		try {
 			Employee _employee = employeeRepository
-					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary(),employee.getRoll(),employee.getDate()));
+					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary(), employee.getRoll(), employee.getDate()));
 			return new ResponseEntity<>(_employee, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -129,6 +129,27 @@ public class EmployeeController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@GetMapping("/Employees/{roll}")
+	public ResponseEntity<List<Employee>>getEmployeeByRoll(@PathVariable("roll") String roll) {
+		logger.info("given employee roll : " + roll);
+		try {
+			List<Employee> employees = new ArrayList<Employee>();
 
-}
+			if (roll == null)
+				employeeRepository.findAll().forEach(employees::add);
+			else
+				employeeRepository.findByRollIsLike(roll).forEach(employees::add);
+
+			if (employees.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(employees, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	}
+
 
