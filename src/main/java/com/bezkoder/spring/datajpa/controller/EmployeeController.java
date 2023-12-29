@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 import com.bezkoder.spring.datajpa.model.Employee;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,21 +25,24 @@ import com.bezkoder.spring.datajpa.repository.EmployeeRepository;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/data-search")
 public class EmployeeController {
+	Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	EmployeeRepository employeeRepository;
 
 	@GetMapping("/Employees")
-	public ResponseEntity<List<Employee>>getAllEmployee(@RequestParam(required = false) String title) {
+	public ResponseEntity<List<Employee>>getAllEmployee(@RequestParam(required = false) String name) {
+		logger.info("given input value as name is = "+name );
+
 		try {
 			List<Employee> employees = new ArrayList<Employee>();
 
-			if (title == null)
+			if (name == null)
 				employeeRepository.findAll().forEach(employees::add);
 			else
-				employeeRepository.findByNameContaining(title).forEach(employees::add);
+				employeeRepository.findByNameContaining(name).forEach(employees::add);
 
 			if (employees.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -63,10 +67,10 @@ public class EmployeeController {
 
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-		System.out.println("Employee : "+employee );
+		logger.info("Employee : "+employee );
 		try {
 			Employee _employee = employeeRepository
-					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary()));
+					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary(),employee.getRoll(),employee.getDate()));
 			return new ResponseEntity<>(_employee, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
