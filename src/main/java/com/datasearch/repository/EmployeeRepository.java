@@ -1,11 +1,11 @@
-package com.bezkoder.spring.datajpa.repository;
+package com.datasearch.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.bezkoder.spring.datajpa.model.Employee;
+import com.datasearch.model.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	Optional<Employee> findById(long id);

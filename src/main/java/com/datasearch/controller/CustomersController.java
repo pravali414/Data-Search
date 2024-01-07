@@ -1,6 +1,6 @@
-package com.bezkoder.spring.datajpa.controller;
-import com.bezkoder.spring.datajpa.model.Customers;
-import com.bezkoder.spring.datajpa.repository.CustomersRepository;
+package com.datasearch.controller;
+import com.datasearch.model.Customers;
+import com.datasearch.repository.CustomersRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

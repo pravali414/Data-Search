@@ -1,10 +1,11 @@
-package com.bezkoder.spring.datajpa.controller;
+package com.datasearch.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.bezkoder.spring.datajpa.model.Employee;
+import com.datasearch.model.Employee;
+import com.datasearch.repository.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.bezkoder.spring.datajpa.repository.EmployeeRepository;
 
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController

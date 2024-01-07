@@ -1,9 +1,7 @@
-package com.bezkoder.spring.datajpa.controller;
+package com.datasearch.controller;
 
-import com.bezkoder.spring.datajpa.model.Employee;
-import com.bezkoder.spring.datajpa.model.Student;
-import com.bezkoder.spring.datajpa.repository.StudentRepository;
-import com.bezkoder.spring.datajpa.service.StudentService;
+import com.datasearch.model.Student;
+import com.datasearch.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

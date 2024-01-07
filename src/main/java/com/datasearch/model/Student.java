@@ -1,4 +1,4 @@
-package com.bezkoder.spring.datajpa.model;
+package com.datasearch.model;
 
 import jakarta.persistence.*;
     @Entity

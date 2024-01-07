@@ -1,7 +1,7 @@
-package com.bezkoder.spring.datajpa.service;
+package com.datasearch.service;
 
-import com.bezkoder.spring.datajpa.model.Student;
-import com.bezkoder.spring.datajpa.repository.StudentRepository;
+import com.datasearch.model.Student;
+import com.datasearch.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
