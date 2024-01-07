@@ -1,6 +1,6 @@
-package com.bezkoder.spring.datajpa.service;
+package com.datasearch.service;
 
-import com.bezkoder.spring.datajpa.model.Student;
+import com.datasearch.model.Student;
 
 import java.util.List;
 
