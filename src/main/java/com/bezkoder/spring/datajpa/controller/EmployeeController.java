@@ -32,7 +32,7 @@ public class EmployeeController {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
-	@GetMapping("/Employees")
+	@GetMapping("/allemployees")
 	public ResponseEntity<List<Employee>> getAllEmployee(@RequestParam(required = false) String name) {
 		logger.info("given input value as name is = " + name);
 
@@ -55,7 +55,7 @@ public class EmployeeController {
 		}
 	}
 
-	@GetMapping("/employee/{id}")
+	@GetMapping("/employeebyid/{id}")
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") long id) {
 		Optional<Employee> employeeData = employeeRepository.findById(id);
 		logger.info("Employee : " + id);
@@ -116,7 +116,7 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("/employees/{Salary}")
+	@GetMapping("/employeebysalary/{Salary}")
 	public ResponseEntity<List<Employee>> findBySalary(@PathVariable("Salary") int salary) {
 		try {
 			List<Employee> employees = employeeRepository.findBySalary(salary);
@@ -129,7 +129,7 @@ public class EmployeeController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	@GetMapping("/Employees/{roll}")
+	@GetMapping("/employeebyroll/{roll}")
 	public ResponseEntity<List<Employee>>getEmployeeByRoll(@PathVariable("roll") String roll) {
 		logger.info("given employee roll : " + roll);
 		try {
