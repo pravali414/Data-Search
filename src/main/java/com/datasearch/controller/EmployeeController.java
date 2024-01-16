@@ -65,30 +65,33 @@ public class EmployeeController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
 		logger.info("Employee : " + employee);
 		try {
 			Employee _employee = employeeRepository
-					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary(), employee.getRoll(), employee.getDate()));
+					.save(employee);
 			return new ResponseEntity<>(_employee, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
-
 	@PutMapping("/employees/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
+	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee updatedemployee) {
+
 		Optional<Employee> employeeData = employeeRepository.findById(id);
 
 		if (employeeData.isPresent()) {
-			Employee _employee = employeeData.get();
-			_employee.setId(employee.getId());
-			_employee.setName(employee.getName());
-			_employee.setSalary(employee.getSalary());
-			return new ResponseEntity<>(employeeRepository.save(_employee), HttpStatus.OK);
+
+			Employee existingemployee = employeeData.get();
+			existingemployee.setId(updatedemployee.getId());
+			existingemployee.setName(updatedemployee.getName());
+			existingemployee.setSalary(updatedemployee.getSalary());
+			existingemployee.setRoll(updatedemployee.getRoll());
+			Employee e1=employeeRepository.save(existingemployee);
+			logger.info("Employee : " + e1);
+			return new ResponseEntity<>(e1, HttpStatus.OK);
+
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
