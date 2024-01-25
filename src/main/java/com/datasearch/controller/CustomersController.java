@@ -88,7 +88,17 @@ public class CustomersController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-}
+    @DeleteMapping("/customers")
+    public ResponseEntity<HttpStatus> deleteAll() {
+        try {
+            customersRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    }
 
 
 
