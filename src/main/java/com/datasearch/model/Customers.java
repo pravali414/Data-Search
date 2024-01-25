@@ -29,30 +29,37 @@ public class Customers {
 
 
     public String getCustomer_Id() {
+
         return customer_Id;
     }
 
     public void setCustomer_Id(String customer_Id) {
+
         this.customer_Id = customer_Id;
     }
 
     public Long getId() {
+
         return id;
     }
 
     public void setId(Long id) {
+
         this.id = id;
     }
 
     public String getStore_Id() {
+
         return store_Id;
     }
 
     public void setStore_Id(String store_Id) {
+
         this.store_Id = store_Id;
     }
 
     public String getFirst_Name() {
+
         return first_Name;
     }
 
@@ -61,14 +68,17 @@ public class Customers {
     }
 
     public String getEmail() {
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
     public int getAddress_Id() {
+
         return address_Id;
     }
 
@@ -77,18 +87,22 @@ public class Customers {
     }
 
     public int getActive() {
+
         return active;
     }
 
     public void setActive(int active) {
+
         this.active = active;
     }
 
     public Timestamp getCreate_Date() {
+
         return create_Date;
     }
 
     public void setCreate_Date(Timestamp create_Date) {
+
         this.create_Date = create_Date;
     }
 
@@ -119,6 +133,9 @@ public class Customers {
                 ", create_Date=" + create_Date +
                 '}';
     }
+
+
+
 }
 
 

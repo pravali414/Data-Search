@@ -65,30 +65,33 @@ public class EmployeeController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
 	@PostMapping("/employees")
 	public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
 		logger.info("Employee : " + employee);
 		try {
 			Employee _employee = employeeRepository
-					.save(new Employee(employee.getId(), employee.getName(), employee.getSalary(), employee.getRoll(), employee.getDate()));
+					.save(employee);
 			return new ResponseEntity<>(_employee, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 	}
+	@PutMapping("/employee/{id}")
+	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee updatedemployee) {
 
-	@PutMapping("/employees/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee employee) {
 		Optional<Employee> employeeData = employeeRepository.findById(id);
 
 		if (employeeData.isPresent()) {
-			Employee _employee = employeeData.get();
-			_employee.setId(employee.getId());
-			_employee.setName(employee.getName());
-			_employee.setSalary(employee.getSalary());
-			return new ResponseEntity<>(employeeRepository.save(_employee), HttpStatus.OK);
+
+			Employee existingemployee = employeeData.get();
+			existingemployee.setId(updatedemployee.getId());
+			existingemployee.setName(updatedemployee.getName());
+			existingemployee.setSalary(updatedemployee.getSalary());
+			existingemployee.setRoll(updatedemployee.getRoll());
+			Employee UpdatedEmployee=employeeRepository.save(existingemployee);
+			logger.info("Employee updated : " + UpdatedEmployee);
+			return new ResponseEntity<>(UpdatedEmployee, HttpStatus.OK);
+
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -96,10 +99,18 @@ public class EmployeeController {
 
 	@DeleteMapping("/employees/{id}")
 	public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable("id") long id) {
+
 		try {
-			employeeRepository.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		} catch (Exception e) {
+			Optional<Employee> employeeOptional = employeeRepository.findById(id);
+			if (employeeOptional.isPresent()) {
+				Employee employeeToDelete = employeeOptional.get();
+				employeeRepository.delete(employeeToDelete);
+				logger.info("Employeedeleted : " + employeeToDelete);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}catch(Exception e){
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
