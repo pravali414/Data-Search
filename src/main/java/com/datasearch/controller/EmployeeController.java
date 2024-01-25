@@ -76,7 +76,7 @@ public class EmployeeController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-	@PutMapping("/employees/{id}")
+	@PutMapping("/employee/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @RequestBody Employee updatedemployee) {
 
 		Optional<Employee> employeeData = employeeRepository.findById(id);
